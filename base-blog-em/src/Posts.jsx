@@ -12,7 +12,9 @@ async function fetchPosts() {
 }
 
 export function Posts() {
-  const { data, isLoading, isError, error } = useQuery('posts', fetchPosts);
+  const { data, isLoading, isError, error } = useQuery('posts', fetchPosts, {
+    staleTime: 2000,
+  });
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedPost, setSelectedPost] = useState(null);
 
