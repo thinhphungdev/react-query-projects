@@ -12,11 +12,12 @@ async function fetchPosts() {
 }
 
 export function Posts() {
-  const { data } = useQuery('posts', fetchPosts);
+  const { data, isLoading, isError, error } = useQuery('posts', fetchPosts);
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedPost, setSelectedPost] = useState(null);
 
-  if (!data) return <div></div>;
+  if (isLoading) return <h3>Loading...</h3>;
+  if (isError) return <div>Something went wrong {error.toString()}</div>;
 
   return (
     <>
