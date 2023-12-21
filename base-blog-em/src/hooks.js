@@ -9,6 +9,6 @@ export function usePrefetch(queryKeyString, currentPage, maxPage) {
 
     const nextPage = currentPage + 1;
 
-    queryClient.prefetchQuery([queryKeyString, nextPage]);
+    queryClient.prefetchQuery({ queryKey: [queryKeyString, nextPage] });
   }, [currentPage, maxPage, queryClient, queryKeyString]);
 }
