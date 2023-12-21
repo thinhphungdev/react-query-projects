@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { PostDetail } from './PostDetail';
 import { useQuery } from 'react-query';
+import { usePrefetch } from './hooks';
 const maxPostPage = 10;
 
 async function fetchPosts(pageNumber) {
@@ -20,8 +21,11 @@ export function Posts() {
     () => fetchPosts(currentPage),
     {
       staleTime: 2000,
+      keepPreviousData: true,
     }
   );
+
+  usePrefetch('post', currentPage, maxPostPage);
 
   if (isLoading) return <h3>Loading...</h3>;
   if (isError) return <div>Something went wrong {error.toString()}</div>;
