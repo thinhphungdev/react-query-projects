@@ -1,15 +1,14 @@
-import { Text } from '@chakra-ui/react';
-import { ReactElement } from 'react';
+import { Text } from "@chakra-ui/react";
 
-import type { Staff as StaffType } from '../../../../shared/types';
-import { Card } from '../common/Card';
+import { Card } from "@/components/common/Card";
+import type { Staff as StaffType } from "@shared/types";
 
 interface StaffProps {
   staffData: StaffType;
 }
-export function Staff({ staffData }: StaffProps): ReactElement {
+export function Staff({ staffData }: StaffProps) {
   const cardContents = (
-    <Text textAlign="center">{staffData.treatmentNames.join(', ')}</Text>
+    <Text textAlign="center">{staffData.treatmentNames.join(", ")}</Text>
   );
 
   return (

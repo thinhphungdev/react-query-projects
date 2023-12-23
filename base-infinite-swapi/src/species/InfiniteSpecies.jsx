@@ -1,6 +1,6 @@
 import InfiniteScroll from 'react-infinite-scroller';
 import { Species } from './Species';
-import { isError, useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 
 const initialUrl = 'https://swapi.dev/api/species/';
 

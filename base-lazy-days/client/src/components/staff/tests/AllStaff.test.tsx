@@ -1,20 +1,22 @@
-import { screen } from '@testing-library/react';
+import { screen } from "@testing-library/react";
 
-// import { rest } from 'msw';
-// import { defaultQueryClientOptions } from '../../../react-query/queryClient';
-// import { server } from '../../../mocks/server';
-// import { renderWithClient } from '../../../test-utils';
-import { AllStaff } from '../AllStaff';
+// import { http, HttpResponse } from "msw";
+// import { server } from '@/mocks/server';
+// import { renderWithClient } from '@/test-utils';
+import { AllStaff } from "../AllStaff";
 
-test('renders response from query', () => {
+test("renders response from query", () => {
   // write test here
 });
 
-test('handles query error', async () => {
-  // (re)set handler to return a 500 error for staff
+test("handles query error", async () => {
+  // (re)set handler to return a 500 error for staff and treatments
   // server.resetHandlers(
-  //   rest.get('http://localhost:3030/staff', (req, res, ctx) => {
-  //     return res(ctx.status(500));
-  //   }),
+  // http.get("http://localhost:3030/staff", () => {
+  //   return new HttpResponse(null, { status: 500 });
+  // }),
+  // http.get("http://localhost:3030/treatments", () => {
+  //   return new HttpResponse(null, { status: 500 });
+  // })
   // );
 });

@@ -1,7 +1,7 @@
-import { Appointment } from '../../../../../shared/types';
-import { axiosInstance } from '../../../axiosInstance';
-import { queryKeys } from '../../../react-query/constants';
-import { useCustomToast } from '../../app/hooks/useCustomToast';
+import { axiosInstance } from "@/axiosInstance";
+import { useCustomToast } from "@/components/app/hooks/useCustomToast";
+import { queryKeys } from "@/react-query/constants";
+import { Appointment } from "@shared/types";
 
 // for when server call is needed
 // async function removeAppointmentUser(appointment: Appointment): Promise<void> {

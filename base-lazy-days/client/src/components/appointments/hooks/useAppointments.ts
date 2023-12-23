@@ -1,18 +1,18 @@
-// @ts-nocheck
-import dayjs from 'dayjs';
-import { Dispatch, SetStateAction, useState } from 'react';
+import dayjs from "dayjs";
+import { Dispatch, SetStateAction, useState } from "react";
 
-import { axiosInstance } from '../../../axiosInstance';
-import { queryKeys } from '../../../react-query/constants';
-import { useUser } from '../../user/hooks/useUser';
-import { AppointmentDateMap } from '../types';
-import { getAvailableAppointments } from '../utils';
-import { getMonthYearDetails, getNewMonthYear, MonthYear } from './monthYear';
+import { AppointmentDateMap } from "../types";
+import { getAvailableAppointments } from "../utils";
+import { getMonthYearDetails, getNewMonthYear, MonthYear } from "./monthYear";
+
+import { useLoginData } from "@/auth/AuthContext";
+import { axiosInstance } from "@/axiosInstance";
+import { queryKeys } from "@/react-query/constants";
 
 // for useQuery call
 async function getAppointments(
   year: string,
-  month: string,
+  month: string
 ): Promise<AppointmentDateMap> {
   const { data } = await axiosInstance.get(`/appointments/${year}/${month}`);
   return data;
@@ -57,7 +57,7 @@ export function useAppointments(): UseAppointments {
   // We will need imported function getAvailableAppointments here
   // We need the user to pass to getAvailableAppointments so we can show
   //   appointments that the logged-in user has reserved (in white)
-  const { user } = useUser();
+  const { userId } = useLoginData();
 
   /** ****************** END 2: filter appointments  ******************** */
   /** ****************** START 3: useQuery  ***************************** */
