@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { Treatment } from "@shared/types";
 
@@ -21,4 +21,13 @@ export function useTreatments(): Treatment[] {
   });
 
   return data;
+}
+
+export function usePrefetchTreatments(): void {
+  const queryClient = useQueryClient();
+
+  queryClient.prefetchQuery({
+    queryKey: queryKeys.treatments,
+    queryFn: getTreatments,
+  })
 }
