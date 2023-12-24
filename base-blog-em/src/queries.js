@@ -19,14 +19,12 @@ export const usePost = (currentPage) => {
 export function usePrefetch(queryKeyString, currentPage, maxPage, prefetchFn) {
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (currentPage > maxPage) return;
+  if (currentPage > maxPage) return;
 
-    const nextPage = currentPage + 1;
+  const nextPage = currentPage + 1;
 
-    queryClient.prefetchQuery({
-      queryKey: [queryKeyString, nextPage],
-      queryFn: prefetchFn,
-    });
-  }, [currentPage, maxPage, queryClient, queryKeyString, prefetchFn]);
+  queryClient.prefetchQuery({
+    queryKey: [queryKeyString, nextPage],
+    queryFn: prefetchFn,
+  });
 }
