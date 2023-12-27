@@ -18,9 +18,6 @@ export function useTreatments(): Treatment[] {
   const { data = fallback } = useQuery({
     queryKey: queryKeys.treatments,
     queryFn: getTreatments,
-    staleTime: 60000,
-    gcTime: 90000,
-    refetchOnMount: false
   });
 
   return data;
