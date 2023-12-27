@@ -28,14 +28,6 @@ interface UseAppointments {
   setShowAll: Dispatch<SetStateAction<boolean>>;
 }
 
-// The purpose of this hook:
-//   1. track the current month/year (aka monthYear) selected by the user
-//     1a. provide a way to update state
-//   2. return the appointments for that particular monthYear
-//     2a. return in AppointmentDateMap format (appointment arrays indexed by day of month)
-//     2b. prefetch the appointments for adjacent monthYears
-//   3. track the state of the filter (all appointments / available appointments)
-//     3a. return the only the applicable appointments for the current monthYear
 export function useAppointments(): UseAppointments {
   /** ****************** START 1: monthYear state *********************** */
   // get the monthYear for the current date (for default monthYear state)
@@ -52,13 +44,9 @@ export function useAppointments(): UseAppointments {
 
   const [showAll, setShowAll] = useState(false);
 
-  // We will need imported function getAvailableAppointments here
-  // We need the user to pass to getAvailableAppointments so we can show
-  //   appointments that the logged-in user has reserved (in white)
   const { userId } = useLoginData();
 
   const selectFn = useCallback((data) => getAvailableAppointments(data, userId), [userId])
-
 
   const queryClient = useQueryClient()
 
@@ -82,6 +70,7 @@ export function useAppointments(): UseAppointments {
     refetchOnMount: true,
     refetchOnReconnect: true,
     refetchOnWindowFocus: true,
+    refetchInterval: 60000,
   })
 
   return { appointments, monthYear, updateMonthYear, showAll, setShowAll };
