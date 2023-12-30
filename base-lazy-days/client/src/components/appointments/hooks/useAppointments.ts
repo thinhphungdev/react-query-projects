@@ -29,26 +29,19 @@ interface UseAppointments {
 }
 
 export function useAppointments(): UseAppointments {
-  /** ****************** START 1: monthYear state *********************** */
-  // get the monthYear for the current date (for default monthYear state)
   const currentMonthYear = getMonthYearDetails(dayjs());
 
-  // state to track current monthYear chosen by user
-  // state value is returned in hook return object
+  const queryClient = useQueryClient()
   const [monthYear, setMonthYear] = useState(currentMonthYear);
+  const [showAll, setShowAll] = useState(false);
 
+  const { userId } = useLoginData();
 
   function updateMonthYear(monthIncrement: number): void {
     setMonthYear((prevData) => getNewMonthYear(prevData, monthIncrement));
   }
 
-  const [showAll, setShowAll] = useState(false);
-
-  const { userId } = useLoginData();
-
   const selectFn = useCallback((data) => getAvailableAppointments(data, userId), [userId])
-
-  const queryClient = useQueryClient()
 
   useEffect(() => {
     const nextMonthYear = getNewMonthYear(monthYear, 1);

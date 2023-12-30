@@ -1,3 +1,4 @@
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 
 import type { User } from "@shared/types";
@@ -12,18 +13,17 @@ import {
 import { useLoginData } from "@/auth/AuthContext";
 import { queryKeys } from "@/react-query/constants";
 
-// query function
-// async function getUser(userId: number, userToken: string, signal: AbortSignal) {
-//   const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
-//     `/user/${userId}`,
-//     {
-//       signal, // abortSignal from React Query
-//       headers: getJWTHeader(userToken),
-//     }
-//   );
+async function getUser(userId: number, userToken: string, signal: AbortSignal) {
+  const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
+    `/user/${userId}`,
+    {
+      signal, // abortSignal from React Query
+      headers: getJWTHeader(userToken),
+    }
+  );
 
-//   return data.user;
-// }
+  return data.user;
+}
 
 interface UseUser {
   user: User | null;
@@ -32,17 +32,25 @@ interface UseUser {
 }
 
 export function useUser(): UseUser {
-  // TODO: call useQuery to update user data from server
-  const user = null;
+  const { data: user } = useQuery({
+    queryKey: queryKeys.user,
+    queryFn: () => getUser(user),
+    initialData: getStoredUser,
+    onSuccess: (received: User | null) => {
+      if (!received) clearStoredUser()
+      else setStoredUser(received)
+    }
+  });
+
+  const queryClient = useQueryClient();
 
   // meant to be called from useAuth
   function updateUser(newUser: User): void {
-    // TODO: update the user in the query cache
+    queryClient.setQueryData(queryKeys.user, newUser);
   }
 
-  // meant to be called from useAuth
   function clearUser() {
-    // TODO: reset user to null in query cache
+    queryClient.setQueryData(queryKeys.user, null);
   }
 
   return { user, updateUser, clearUser };
