@@ -34,7 +34,7 @@ interface UseUser {
 export function useUser(): UseUser {
   const { data: user } = useQuery({
     queryKey: queryKeys.user,
-    queryFn: () => getUser(user),
+    queryFn: ({ signal }) => getUser(user.id, user.token, signal),
     initialData: getStoredUser,
     onSuccess: (received: User | null) => {
       if (!received) clearStoredUser()
