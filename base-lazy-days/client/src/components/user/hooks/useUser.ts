@@ -51,6 +51,8 @@ export function useUser(): UseUser {
 
   function clearUser() {
     queryClient.setQueryData(queryKeys.user, null);
+    // remove dependent query
+    queryClient.removeQueries('user-appointments');
   }
 
   return { user, updateUser, clearUser };
