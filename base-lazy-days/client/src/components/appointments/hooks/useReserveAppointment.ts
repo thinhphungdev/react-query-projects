@@ -40,3 +40,4 @@ export function useReserveAppointment(): UseMutateFunction<void, unknown, Appoin
 
   return mutate;
 }
+

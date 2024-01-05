@@ -6,6 +6,7 @@ import type { Appointment } from "@shared/types";
 import { axiosInstance, getJWTHeader } from "../../../axiosInstance";
 
 import { useLoginData } from "@/auth/AuthContext";
+import { queryKeys } from "@/react-query/constants";
 
 async function getUserAppointments(
   userId: number,
@@ -24,7 +25,7 @@ export function useUserAppointments(): Appointment[] {
   const { userId, userToken } = useLoginData();
 
   const { data: userAppointments = [] } = useQuery({
-    queryKey: 'user-appointments',
+    queryKey: [queryKeys.appointments, queryKeys.user, userId],
     queryFn: () => getUserAppointments(userId, userToken),
     enabled: userId ? true : false,
   });

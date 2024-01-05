@@ -52,7 +52,7 @@ export function useUser(): UseUser {
   function clearUser() {
     queryClient.setQueryData(queryKeys.user, null);
     // remove dependent query
-    queryClient.removeQueries('user-appointments');
+    queryClient.removeQueries([queryKeys.appointments, queryKeys.user]);
   }
 
   return { user, updateUser, clearUser };
